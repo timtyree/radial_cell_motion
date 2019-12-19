@@ -1,20 +1,19 @@
-<h4>/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-* Python       :   Cellular Automata for Radial Chemotaxis Monte Carlo
-*
-* PROGRAMMER   :   Timothy Tyree
-* DATE         :   Fri 13 Dec 2019 
-* PLACE        :   Rappel Lab @ UCSD, CA
-*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-*/</h4>
+<h4>
+* Python       :   Cellular Automata for Radial Chemotaxis Monte Carlo<br>
+*<br>
+* PROGRAMMER   :   Timothy Tyree<br>
+* DATE         :   Fri 13 Dec 2019 <br>
+* PLACE        :   Rappel Lab @ UCSD, CA<br>
+</h4>
+
 
 
 <p>This project simulates radial cell motion resulting from constant radial speed models of the form</p>
 
-<p>vr = v0*sign(a*ga-b*gr),</p>
+ v<sub>r</sub>( g<sub>A</sub>,  g<sub>R</sub>) = v<sub>0</sub> sign(a g<sub>A</sub> - b g<sub>R</sub>)
 
-<p>where ga and gr are gradients or fractional gradients in a radial concentration profile.
-gr is taken to be at steady state for a constitutively produced chemorepellent, R, and ga is taken to be a chemorep ellentsuch as a cyclic adenosine monophosphate (cAMP) radial concentration field varying in time according to values stored in
-a pandas.DataFrame object, df_camp.  sign is the sign function, which is taken to be zero for arguments suffiently close to zero.  g_thresh is the minimum gradient that can be sensed to produce directed cell motion.  The default value is previously suggested, and for a 15µm long Dictyostelium discoideum cell with a 0.1nM cAMP drop accross its length, g_thresh = 0.1/15.<br>
+<p>where  g<sub>A</sub> and g<sub>R</sub> are gradients or fractional gradients in a radial concentration profile.
+g<sub>R</sub> is taken for steady state for a constitutively produced chemorepellent, R, and g<sub>A</sub> is taken to be a chemoattractant such as a cyclic adenosine monophosphate (cAMP) radial concentration field varying in time according to values stored in a pandas.DataFrame object, df_camp.  sign is the sign function, which is taken to be zero for arguments suffiently close to zero.  g_thresh is the minimum gradient that can be sensed to produce directed cell motion.  The default value is previously suggested, and for a 15µm long Dictyostelium discoideum cell with a 0.1nM cAMP drop accross its length, g_thresh = 0.1/15.<br>
 (Song, 2006: https://doi.org/10.1016/j.ejcb.2006.01.012)</p>
 
 <p>This module contains the Cell() class, which represents cell motion predicted by the constant radial speed models. Cell() is a 1D cellular automaton for radial cell motion in the presence of a chemoattractant and a chemorepellent.</p>
