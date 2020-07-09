@@ -1,0 +1,8 @@
+Printing Inputs:
+kPDE:0.0002 LPDE:100 c0:4 T:21 iter_no:3 dt:0.005 time_res:10
+
+Printing Outputs including mean cell direction (mcd):
+cycle_no,mean_c,mcd_at_100,mcd_at_200,mcd_at_300,mcd_at_400
+0,8.94988,-1.00000,-0.98413,-0.93651,-0.86508
+1,13.84632,-1.00000,-0.99206,-0.96825,-0.93254
+2,18.71753,-1.00000,-0.99471,-0.97884,-0.95503
