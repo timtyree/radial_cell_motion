@@ -101,10 +101,15 @@ def time_step(c, pde, rmesh, D, kPDE, dr, fluxLeft, fluxRight=0):
 	dcdt  = term1 + term2 + termBC + termDEG
 	return dcdt
 
+def get_cnet(c,rmesh,dr):
+	dA = np.array([2*np.pi*dr*r + np.pi*dr**2 for r in rmesh])
+	cnet = np.add.reduce(np.dot(c,dA))
+	return cnet
+
 ###########################################################################
 ###### define simulation ###########
 ###########################################################################
-def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res):
+def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res, use_constant_fluxLeft = False):
 	'''function that returns a minimalist df.  
 	T = period in minutes.
 	dt = step size in seconds.'''
@@ -122,11 +127,15 @@ def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res):
 	D    = 100.#um^2/s
 	ds   =(0.1/15)
 
-	#  precompute realistic periodic camp signaling
-	t_list  = np.around(np.arange(0,Ts+dt,dt),4)
-	spl     = import_mg_source(period=T)
-	dsource = evaluate_mg_source(spl, t_list)
-	phi     = lambda t: F0*dsource[np.around(t,4)]/rmesh[0]
+	if not use_constant_fluxLeft:
+		#  precompute realistic periodic camp signaling
+		t_list  = np.around(np.arange(0,Ts+dt,dt),4)
+		spl     = import_mg_source(period=T)
+		dsource = evaluate_mg_source(spl, t_list)
+		phi     = lambda t: F0*dsource[np.around(t,4)]/rmesh[0]
+	else:
+		# use constant camp flux
+		phi     = lambda t: F0/rmesh[0]
 
 	#cylindrical FEM with localized PDE decay
 	# define b.c.'s in units of slope #concentration difference per time step
@@ -154,6 +163,8 @@ def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res):
 	print('cycle_no,mean_c,mcd_at_{0:d},mcd_at_{1:d},mcd_at_{2:d},mcd_at_{3:d},mcd_at_{4:d},mcd_at_{5:d}'.format(*r_bins))
 	# print(f'cycle_no, {r_bins[0]:3.3f}, {r_bins[1]:3.3f}, {r_bins[2]:3.3f}')
 	#numerically integrate
+	t_values = [0.]
+	cnet_values  = [get_cnet(c,rmesh,dr)]
 	while(cycle_no < iter_no):
 		#step forward in time (FEM)
 		dcdt = time_step(c, pde, rmesh, D, kPDE, dr, fluxLeft(time))
@@ -163,7 +174,12 @@ def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res):
 		# dcdt2 = time_step(c+dt/2*dcdt, pde, rmesh, D, kPDE, dr, fluxLeft(t2))
 		# dcdt3 = time_step(c+dt/2*dcdt2, pde, rmesh, D, kPDE, dr, fluxLeft(t2))
 		# c = c + dt*dcdt3
-		#TODO(later): try iterating time_step a couple times for stability
+		#TODO(later): implement a runga-kutta and use a larger time step
+
+		#record net camp
+		cnet = get_cnet(c,rmesh,dr)
+		cnet_values.append(cnet)
+		t_values.append(t_values[-1]+dt)
 
 		#every time_res seconds, measure direction of cell motion
 		if t2>=time_res:
@@ -172,6 +188,8 @@ def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res):
 			#record cell direction
 			for i,l in enumerate(v_bucket):
 			    l.append(v_bins[i])
+			
+
 			#reset t2
 			t2 = 0
 		#at the end of every period, print average cell motion
@@ -192,7 +210,7 @@ def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res):
 		t2   += dt
 	print("the final radial cAMP field is:\ncAMP=")
 	print(c)
-	return c
+	return cnet_values, t_values
 
 ##################################################
 ## main routine - run the simulation for some batch of parameters
