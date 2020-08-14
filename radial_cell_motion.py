@@ -18,8 +18,7 @@ such as a cyclic adenosine monophosphate (cAMP) radial concentration field varyi
 a pandas.DataFrame object, df_camp.
 '''
 
-import pandas as pd
-import numpy as np 
+import pandas as pd, numpy as np
 from scipy.special import kv
 from scipy.interpolate import BSpline
 from joblib import Parallel, delayed
@@ -27,7 +26,7 @@ import multiprocessing
 num_cores = multiprocessing.cpu_count()
 
 #automate the boring stuff
-import time, warnings, sys
+import time, warnings, sys, os
 
 #TODO: make automated database repository creation function for results to stream to
 #TODO: stream simulated results to that database repository as they're made so they don't take up virtual memory
@@ -37,6 +36,12 @@ import time, warnings, sys
 #TODO: incorporate minimum gradient sensing into Cell
 #TODO: repeat for pde degradation model outward gradients
 #TODO: put test cases in their own file and have an associated test df_camp to pull without user input df_camp
+
+#import pdesim
+transfer_dir = os.path.join('pde-sim/pde-sim-transfer')
+if transfer_dir not in sys.path:
+    sys.path.append(module_dir)
+import pde_sim_returns_camp as pdesim
 
 
 ############################################################################
@@ -88,7 +93,8 @@ class Cell():
 		return self
 	
 	def calc_vr(self, GA, GR):
-		'''return the velocity given by v0*np.sign(a*GA - b&GR).'''
+		'''return the velocity given by v0*np.sign(a*GA - b&GR).
+		GA and GR is the local value of chemoattractant and chemorepellant concentration gradient in nM/micron'''
 		return self.v0*sign_w_thresh(self.a*GA - self.b*GR,self.g_thresh)
 		# return self.v0*np.sign(self.a*GA - self.b*GR)
 		

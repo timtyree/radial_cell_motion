@@ -7,6 +7,20 @@
 # and the output returned to stdout.  In the case of the unexpected,
 # it will report to stderr.
 
+# EXAMPLE COMMAND LINE USAGE
+###############
+# $ python3 pde_sim_returns_camp.py 0.02 100.0 4.0 10.0 2.0 0.005 10.0
+# where the parameters are the following
+# - kPDE = 0.02/sec, 
+# - LPDE = 100µm^2/sec, 
+# - c0 = 4.0nM, 
+# - T=10.0min, 
+# - iter_no = 2.0 # the number of pulses to integrate (tmax = iter_no*T)
+# - dt = 0.005sec
+# - time_res = 10.0min # the frequency data is printed.
+
+
+
 import pandas as pd
 import numpy as np
 from scipy.special import kn #modified bessel function of the second kind of integer order n
@@ -109,7 +123,8 @@ def get_cnet(c,rmesh,dr):
 ###########################################################################
 ###### define simulation ###########
 ###########################################################################
-def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res, use_constant_fluxLeft = False):
+def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res, 
+	D=100, use_constant_fluxLeft = False):
 	'''function that returns a minimalist df.  
 	T = period in minutes.
 	dt = step size in seconds.'''
@@ -124,7 +139,7 @@ def simulate(kPDE, LPDE, c0, T, iter_no, dt, time_res, use_constant_fluxLeft = F
 	c    = 0.*rmesh
 	#  define default parameters
 	F0   = 10**4
-	D    = 100.#um^2/s
+	# D    = 100.#um^2/s
 	ds   =(0.1/15)
 
 	if not use_constant_fluxLeft:
