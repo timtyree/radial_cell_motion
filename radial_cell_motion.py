@@ -37,11 +37,15 @@ import time, warnings, sys, os
 #TODO: repeat for pde degradation model outward gradients
 #TODO: put test cases in their own file and have an associated test df_camp to pull without user input df_camp
 
-#import pdesim
-transfer_dir = os.path.join('pde-sim/pde-sim-transfer')
+# import the library
+transfer_dir = os.path.join('pde_sim/nb')
 if transfer_dir not in sys.path:
-    sys.path.append(module_dir)
-import pde_sim_returns_camp as pdesim
+    sys.path.append(transfer_dir)
+transfer_dir = os.path.join('pde_sim/pde-sim-transfer')
+# if transfer_dir not in sys.path:
+#     sys.path.append(transfer_dir)
+# import pde_sim_returns_camp as pdesim
+# # import pde_sim.nb.pde_sim_returns_camp as pdesim
 
 
 ############################################################################

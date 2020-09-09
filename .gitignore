@@ -7,11 +7,11 @@ __pycache__/
 *.so
 
 # Data
-pde-sim/archive/
-pde-sim/data/Log/
-pde-sim/pde-sim-transfer/runs/
-pde-sim/fig/
-pde-sim/data/results/
+pde_sim/archive/
+pde_sim/data/Log/
+pde_sim/pde-sim-transfer/runs/
+pde_sim/fig/
+pde_sim/data/results/
 
 # Distribution / packaging
 .Python

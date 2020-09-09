@@ -13,25 +13,8 @@ print('notebook is at: ' + nb_dir)
 #TODO: make the abstraction
 #DONE: make it greyscale
 #TODO: try s = c0 and c = any output
-def plot_for(df_raw,constant,x_col,y_col,c_col,
-    s_col=None, s_scale=200,
-    x_label = '$\mathbf{k_{PDE}}$ (1/s)',
-    y_label = '$\mathbf{L_{PDE}}$ (µm)',
-    c_label = '$\mathbf{C_{back}}$ (nM)',
-    save_dir = f'{nb_dir}/../fig/', 
-    y_log_scale=True, 
-    x_log_scale=True, 
-    axis_limits = [0.0001, 1, 10, 1000],
-    fontsize = 18,
-    show_cbar = True,
-    marker = 's',
-    cmap = None,
-    alpha = 1,
-    save_folder = f'{nb_dir}/../fig/',
-    fig_size = [6.2, 3.5],
-    c_limits = None,
-    edgecolors = 'face',
-    **kwargs):
+def plot_for(df_raw,constant,x_col,y_col,c_col,s_col=None, s_scale=200,x_label = '$\mathbf{k_{PDE}}$ (1/s)',y_label = '$\mathbf{L_{PDE}}$ (µm)',c_label = '$\mathbf{C_{back}}$ (nM)',save_dir = f'{nb_dir}/../fig/', y_log_scale=True, x_log_scale=True, axis_limits = [0.0001, 1, 10, 1000],fontsize = 18,show_cbar = True,marker = 's',cmap = None,alpha = 1,save_folder = f'{nb_dir}/../fig/',fig_size = [6.2, 3.5],c_limits = None,
+    edgecolors = 'face',**kwargs):
     '''plot in 2D for constant-variable-response from grid search results for an abstract experiment.
     kwargs passed to matplotlib.pyplot.scatter(**kwargs).'''
     #step 1: select/compute the data to be plotted
@@ -105,3 +88,10 @@ def plot_for(df_raw,constant,x_col,y_col,c_col,
     os.chdir(save_dir)    
     fig.savefig(save_fn, bbox_inches ='tight', dpi = 600)
     return fig
+
+if __name__ == '__main__':
+    #TODO: 
+    #TODO: 
+    #TODO: 
+    
+    
