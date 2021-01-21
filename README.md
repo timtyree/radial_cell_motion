@@ -5,7 +5,7 @@ Simulations of Radial Cell Motion
 <p>This repository contains the code used to generate the figures and data associated with "Cell dispersal by localized degradation of a chemoattractant" (Karmakar, Tyree, Gomer, Rappel, 2021).  Inward/Outward cell motion was simulated using local cell rules that suppose constant cell speed according to</p>
 
 
-- <img src="https://latex.codecogs.com/gif.latex?v(g_A, g_R) = v_0 \text{sign}(a g_A - b g_R )" />
+![equation](https://latex.codecogs.com/gif.latex?v%28g_A%2C%20g_R%29%20%3D%20v_0%20%5Ctext%7Bsign%7D%28a%20g_A%20-%20b%20g_R%20%29)
 
 <p>where  g<sub>A</sub> and g<sub>R</sub> are gradients or fractional gradients in a radial concentration profile.
 g<sub>R</sub> is taken for steady state for a constitutively produced chemorepellent, R, and g<sub>A</sub> is taken to model the gradient of chemoattractant, cyclic adenosine monophosphate (cAMP) 
