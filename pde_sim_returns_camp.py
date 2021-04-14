@@ -61,13 +61,13 @@ workspace_dir = os.getcwd()
 source_fn = 'mg_source_1987.csv'
 assert(os.path.exists(source_fn))
 #updated
-def import_mg_source(period, mg_scaled_fn='mg_source_1987.csv', nn = 3, ):
+def import_mg_source(period, mg_scaled_fn='mg_source_1987.csv', nn = 3, Dt= 0.0005):
     '''period is in minutes'''
     df = pd.read_csv(mg_scaled_fn)
     t_values = df.times.values
     a_values = df.synth_rate.values
     spl = BSpline(t_values, a_values, nn, extrapolate='True')
-    Dt= 0.0005#minutes
+    # Dt= 0.0005#minutes
     t_list = np.arange(0,11,Dt)#minutes
     c_list = spl(t_list)
     t_list_2 = np.arange(11,period+Dt,Dt)
