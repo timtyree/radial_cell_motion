@@ -14,6 +14,7 @@ pde_sim/fig/
 pde_sim/data/results/
 
 # Distribution / packaging
+.DS_Store
 .Python
 build/
 develop-eggs/
